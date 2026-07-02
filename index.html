@@ -14,7 +14,7 @@
     --surface: #111111;
     --surface2: #1a1a1a;
     --border: #242424;
-    --text: #e8e8e4;
+    --text: #ffffff;
     --muted: #666;
     --accent-red: #FF3B30;
     --accent-gold: #FFB800;
@@ -371,24 +371,35 @@
   }
 
   .day-check {
-    width: 20px;
-    height: 20px;
-    border: 1.5px solid var(--border);
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--border);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 10px;
+    font-size: 12px;
     color: var(--muted);
-    transition: all 0.15s;
+    transition: all 0.2s ease;
     flex-shrink: 0;
     margin-top: 2px;
     cursor: pointer;
+    background: rgba(255,255,255,0.04);
+  }
+  .day-check:hover {
+    border-color: rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.08);
   }
   .day-row.completed .day-check {
     background: var(--accent-green);
     border-color: var(--accent-green);
-    color: #000;
+    color: #040404;
+    box-shadow: 0 0 0 3px rgba(48,209,88,0.18);
+  }
+  .day-row.completed .day-check::before {
+    content: '✓';
+    font-size: 14px;
+    line-height: 1;
   }
 
   /* Long run row highlight */
