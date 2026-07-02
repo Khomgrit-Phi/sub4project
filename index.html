@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ton — Bangkok Marathon 2026 · 22-Week Plan</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -30,18 +30,32 @@
     --phase-taper: #30D158;
 
     --mono: 'Space Mono', monospace;
-    --sans: 'Space Grotesk', sans-serif;
+    --sans: 'Inter', sans-serif;
+    --muted: #999;
   }
 
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    font-size: 100%;
+  }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
-    font-size: 14px;
-    line-height: 1.6;
+    font-size: 17px;
+    line-height: 1.72;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button:focus-visible,
+  .nav-btn:focus-visible,
+  .day-row:focus-visible,
+  .day-check:focus-visible {
+    outline: 3px solid rgba(255,255,255,0.35);
+    outline-offset: 3px;
   }
 
   /* ── HEADER ── */
@@ -67,23 +81,23 @@
   }
   .hero-eyebrow {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     letter-spacing: 0.12em;
     color: var(--accent-red);
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
   .hero-title {
-    font-size: 36px;
+    font-size: 44px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    line-height: 1.1;
-    margin-bottom: 8px;
+    line-height: 1.08;
+    margin-bottom: 12px;
   }
   .hero-sub {
     color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 28px;
+    font-size: 16px;
+    margin-bottom: 30px;
   }
 
   .hero-stats {
@@ -97,16 +111,16 @@
   }
   .stat-val {
     font-family: var(--mono);
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1;
   }
   .stat-label {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-top: 4px;
+    margin-top: 6px;
   }
 
   /* ── ZONES ── */
@@ -121,7 +135,7 @@
   }
   .zones-label {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -130,8 +144,8 @@
   .zone-chip {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 12px;
+    gap: 8px;
+    font-size: 14px;
     font-family: var(--mono);
   }
   .zone-dot {
@@ -158,9 +172,9 @@
   .cycle-nav::-webkit-scrollbar { display: none; }
   .nav-btn {
     flex-shrink: 0;
-    padding: 12px 10px;
+    padding: 14px 12px;
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     background: none;
     border: none;
@@ -168,6 +182,7 @@
     border-bottom: 2px solid transparent;
     transition: all 0.15s;
     white-space: nowrap;
+    min-height: 44px;
   }
   .nav-btn:hover { color: var(--text); }
   .nav-btn.active { color: var(--text); border-bottom-color: var(--accent-red); }
@@ -205,12 +220,12 @@
   .badge-taper { background: rgba(48,209,88,0.15); color: var(--phase-taper); border: 1px solid rgba(48,209,88,0.3); }
 
   .phase-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
     letter-spacing: -0.01em;
   }
   .phase-desc {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     margin-left: auto;
     font-family: var(--mono);
@@ -242,18 +257,18 @@
 
   .cycle-num {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     min-width: 52px;
   }
   .cycle-dates {
     font-family: var(--mono);
-    font-size: 12px;
+    font-size: 13px;
     color: var(--text);
     flex: 1;
   }
   .cycle-focus {
-    font-size: 12px;
+    font-size: 13px;
     color: var(--muted);
     flex: 2;
     white-space: nowrap;
@@ -262,7 +277,7 @@
   }
   .cycle-km {
     font-family: var(--mono);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text);
     min-width: 60px;
@@ -270,7 +285,7 @@
   }
   .cycle-long {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--accent-red);
     min-width: 56px;
     text-align: right;
@@ -309,24 +324,24 @@
 
   .day-num {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     padding-top: 2px;
   }
   .day-date {
     font-family: var(--mono);
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
     padding-top: 2px;
   }
   .day-tag {
     display: inline-block;
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 2px 6px;
-    border-radius: 3px;
+    padding: 3px 7px;
+    border-radius: 4px;
     margin-top: 2px;
     flex-shrink: 0;
   }
@@ -341,17 +356,17 @@
   .tag-test { background: rgba(255,184,0,0.08); color: var(--phase-build); }
 
   .day-workout {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text);
     padding-right: 12px;
   }
   .day-workout strong { font-weight: 600; }
   .day-workout .detail {
     display: block;
-    font-size: 11px;
+    font-size: 12px;
     color: var(--muted);
-    margin-top: 2px;
-    line-height: 1.5;
+    margin-top: 4px;
+    line-height: 1.65;
     font-family: var(--mono);
   }
 
@@ -442,13 +457,13 @@
     background: #222;
     color: var(--text);
     font-family: var(--mono);
-    font-size: 10px;
-    padding: 3px 6px;
-    border-radius: 4px;
+    font-size: 11px;
+    padding: 4px 7px;
+    border-radius: 5px;
     white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
     transition: opacity 0.15s;
   }
   .vol-bar:hover::after { opacity: 1; }
@@ -462,29 +477,29 @@
     margin-bottom: 32px;
   }
   .race-day-card h3 {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
   .race-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
   }
   .race-item h4 {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .race-item p {
-    font-size: 13px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.75;
     color: var(--text);
   }
   .race-item p strong { color: var(--accent-gold); }
@@ -494,7 +509,7 @@
     padding: 32px;
     border-top: 1px solid var(--border);
     color: var(--muted);
-    font-size: 11px;
+    font-size: 12px;
     font-family: var(--mono);
     text-align: center;
   }
