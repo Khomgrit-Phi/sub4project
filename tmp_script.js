@@ -1,0 +1,406 @@
+
+const PLAN = {
+  cycles: [
+    {
+      n: 1, phase: 'Base', dates: '29 Jun – 07 Jul', totalKm: 48, longKm: 18, recovery: false,
+      focus: 'Establish 9-day rhythm. All easy except one quality.',
+      days: [
+        { d:1, date:'Jun 29', dn:'Mon', tag:'easy', name:'Easy Run Z2', km:8, detail:'8km easy 6:50–7:20/km, HR <149. Establish your 5am Bangkok routine.' },
+        { d:2, date:'Jun 30', dn:'Tue', tag:'easy', name:'Easy + Strides', km:8, detail:'8km easy + 6×20s strides at end. Relaxed acceleration, not sprints.' },
+        { d:3, date:'Jul 01', dn:'Wed', tag:'medium', name:'Medium-Long Run', km:12, detail:'12km steady Z2. Gel at 45min — start gut training now.' },
+        { d:4, date:'Jul 02', dn:'Thu', tag:'quality', name:'Hill Repeats (Base) 🏔', km:7, detail:'15min WU easy → 6×400m @incline 5%, jog 400m flat recovery → 10min CD. HR 160–168 per rep. ลู่: set 5% วิ่ง 400m แล้ว 0% recovery 400m' },
+        { d:5, date:'Jul 03', dn:'Fri', tag:'quality', name:'Cruise Intervals', km:11, detail:'15min WU + 4×1200m @6:05–6:15/km (HR 157–165), 90s jog + 10min CD' },
+        { d:6, date:'Jul 04', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'8km easy + 6×20s strides. Save legs for tomorrow.' },
+        { d:7, date:'Jul 05', dn:'Sun', tag:'long', name:'★ Long Run — 18km', km:18, detail:'18km all easy. 7:00–7:20/km, HR strictly <152. Fuel every 45min. Bangkok heat rule: slow down if HR drifts, don\'t chase pace.' },
+        { d:8, date:'Jul 06', dn:'Mon', tag:'easy', name:'Fartlek — Unstructured 🎲', km:8, detail:'Base Fartlek 8km: WU 10min → surge 30–60s @5:00–5:20/km เมื่อรู้สึกอยากวิ่งเร็ว แล้ว float กลับ easy ไม่มีโครงสร้างตายตัว HR avg Z2–Z3' },
+        { d:9, date:'Jul 07', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Full rest day. Walk, stretch, foam roll.' },
+      ]
+    },
+    {
+      n: 2, phase: 'Base', dates: '08 – 16 Jul', totalKm: 51, longKm: 20, recovery: false,
+      focus: 'LTHR Field Test. Sets zones for the entire plan.',
+      days: [
+        { d:1, date:'Jul 08', dn:'Wed', tag:'medium', name:'Medium-Long Run', km:13, detail:'13km easy Z2. Gel practice at 45min.' },
+        { d:2, date:'Jul 09', dn:'Thu', tag:'easy', name:'Easy Run', km:8, detail:'Easy 8km recovery run. HR <145.' },
+        { d:3, date:'Jul 10', dn:'Fri', tag:'test', name:'30-Min LTHR Field Test ⚡', km:10, detail:'15min WU easy → 30min at hardest sustainable pace → record AVG HR = your LTHR → 10min CD. Expected 165–172 bpm. Adjust all zones after.' },
+        { d:4, date:'Jul 11', dn:'Sat', tag:'quality', name:'Hill Repeats (Base) 🏔', km:7, detail:'15min WU → 6×400m @incline 5%, jog 400m recovery → 10min CD. Compare C1 — HR เดิมควรรู้สึกง่ายขึ้น' },
+        { d:5, date:'Jul 12', dn:'Sun', tag:'long', name:'★ Long Run — 20km', km:20, detail:'20km easy. 7:00–7:15/km. Fuel every 45min. This is your first "real" long run.' },
+        { d:6, date:'Jul 13', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Easy 6km only. Let the LTHR test + long run absorb.' },
+        { d:7, date:'Jul 14', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Full rest.' },
+        { d:8, date:'Jul 15', dn:'Wed', tag:'easy', name:'Fartlek — Unstructured 🎲', km:8, detail:'Base Fartlek 8km: Surge 30–60s เมื่อรู้สึก float กลับ easy ไม่กดดัน pace' },
+        { d:9, date:'Jul 16', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km. Consistent base building.' },
+      ]
+    },
+    {
+      n: 3, phase: 'Base', dates: '17 – 25 Jul', totalKm: 50, longKm: 22, recovery: false,
+      focus: 'First 22km. Tempo introduced.',
+      days: [
+        { d:1, date:'Jul 17', dn:'Fri', tag:'quality', name:'Tempo Run', km:10, detail:'15min WU + 20min tempo @5:55–6:05/km (HR 155–165) + 10min CD. Comfortably hard. 3–4 words at a time.' },
+        { d:2, date:'Jul 18', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides. 22km tomorrow.' },
+        { d:3, date:'Jul 19', dn:'Sun', tag:'long', name:'★ Long Run — 22km', km:22, detail:'22km — longest so far. All easy 7:00–7:15/km. If HR rises in heat past 18km, walk 1min then resume. Fuel every 45min.' },
+        { d:4, date:'Jul 20', dn:'Mon', tag:'quality', name:'Hill Repeats (Base) 🏔', km:7, detail:'15min WU → 6×400m @incline 5%, jog 400m recovery → 10min CD. Focus: ยกเข่าบนเนิน ไม่เอนตัวไปข้างหน้า' },
+        { d:5, date:'Jul 21', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest. Legs rebuilding.' },
+        { d:6, date:'Jul 22', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km. Feeling fresh.' },
+        { d:7, date:'Jul 23', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km. Consistent.' },
+        { d:8, date:'Jul 24', dn:'Fri', tag:'easy', name:'Fartlek — Unstructured 🎲', km:8, detail:'Base Fartlek 8km: Surge เมื่อรู้สึก สนุกไม่มีโครงสร้าง' },
+        { d:9, date:'Jul 25', dn:'Sat', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km. Good base building rhythm.' },
+      ]
+    },
+    {
+      n: 4, phase: 'Base', dates: '26 Jul – 03 Aug', totalKm: 35, longKm: 16, recovery: true,
+      focus: '⟳ Recovery Cycle. Body rebuilds here.',
+      days: [
+        { d:1, date:'Jul 26', dn:'Sun', tag:'long', name:'★ Recovery Long Run — 16km', km:16, detail:'16km easy — this is short on purpose. Let the Base weeks absorb. HR stay in Z1–2.' },
+        { d:2, date:'Jul 27', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Very easy 6km. Enjoy the lightness.' },
+        { d:3, date:'Jul 28', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Full rest.' },
+        { d:4, date:'Jul 29', dn:'Wed', tag:'quality', name:'Hill Repeats — Light 🏔', km:6, detail:'Recovery cycle — hills เบา. 10min WU → 4×400m @incline 4%, recovery 400m → 10min CD. HR max 155 เท่านั้น' },
+        { d:5, date:'Jul 30', dn:'Thu', tag:'rest', name:'REST or Walk', km:0, detail:'Rest or 30min walk only.' },
+        { d:6, date:'Jul 31', dn:'Fri', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km. Should feel springy after rest.' },
+        { d:7, date:'Aug 01', dn:'Sat', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km. Recovery wrap-up.' },
+        { d:8, date:'Aug 02', dn:'Sun', tag:'easy', name:'Easy Run Z2', km:7, detail:'Recovery cycle — ไม่มี Fartlek. Easy 7km HR <142' },
+        { d:9, date:'Aug 03', dn:'Mon', tag:'easy', name:'Easy Run Z2', km:7, detail:'Easy 7km. Transition into Cycle 5.' },
+      ]
+    },
+    {
+      n: 5, phase: 'Base', dates: '04 – 12 Aug', totalKm: 55, longKm: 24, recovery: false,
+      focus: 'Peak Base volume. First 24km.',
+      days: [
+        { d:1, date:'Aug 04', dn:'Tue', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+        { d:2, date:'Aug 05', dn:'Wed', tag:'medium', name:'Medium-Long Run', km:13, detail:'13km: 10km easy + last 3km drift to M-pace (6:10–6:20/km). First taste of marathon pace.' },
+        { d:3, date:'Aug 06', dn:'Thu', tag:'easy', name:'Easy Run', km:8, detail:'Easy 8km.' },
+        { d:4, date:'Aug 07', dn:'Fri', tag:'quality', name:'Hill Repeats (Base) 🏔', km:8, detail:'15min WU → 8×400m @incline 5%, jog 400m recovery → 10min CD. เพิ่มจาก 6 → 8 reps. HR 160–168 per rep' },
+        { d:5, date:'Aug 08', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + 6×20s strides. 24km tomorrow.' },
+        { d:6, date:'Aug 09', dn:'Sun', tag:'long', name:'★ Long Run — 24km', km:24, detail:'24km all easy. Gel every 40min. Prep night before: extra 100g carbs at dinner. This is a serious run.' },
+        { d:7, date:'Aug 10', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Easy 6km recovery.' },
+        { d:8, date:'Aug 11', dn:'Tue', tag:'easy', name:'Fartlek — Structured 🎲', km:9, detail:'Structured Fartlek 9km: WU 10min → 6×1min @5:10–5:20/km with 2min easy float → CD 10min' },
+        { d:9, date:'Aug 12', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km. Base phase complete. BUILD begins next cycle.' },
+      ]
+    },
+    {
+      n: 6, phase: 'Build', dates: '13 – 21 Aug', totalKm: 60, longKm: 26, recovery: false,
+      focus: 'Build begins. M-pace work in medium-long.',
+      days: [
+        { d:1, date:'Aug 13', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km.' },
+        { d:2, date:'Aug 14', dn:'Fri', tag:'quality', name:'Tempo 25min', km:11, detail:'15min WU + 25min tempo @5:50–6:00/km + 10min CD. HR 157–167.' },
+        { d:3, date:'Aug 15', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides. 26km tomorrow.' },
+        { d:4, date:'Aug 16', dn:'Sun', tag:'quality', name:'Hill Repeats (Build) 🏔', km:8, detail:'15min WU → 8×400m @incline 7%, jog 400m recovery → 10min CD. Build phase: incline 7% หนักกว่า Base มาก' },
+        { d:5, date:'Aug 17', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Very easy 6km.' },
+        { d:6, date:'Aug 18', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest.' },
+        { d:7, date:'Aug 19', dn:'Wed', tag:'easy', name:'Easy Run + Strides', km:9, detail:'Easy 9km + strides.' },
+        { d:8, date:'Aug 20', dn:'Thu', tag:'easy', name:'Fartlek — Structured (Build) 🎲', km:9, detail:'Build Fartlek 9km: WU 10min → 8×1min @5:00–5:15/km with 90s easy → CD 10min' },
+        { d:9, date:'Aug 21', dn:'Fri', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+      ]
+    },
+    {
+      n: 7, phase: 'Build', dates: '22 – 30 Aug', totalKm: 58, longKm: 26, recovery: false,
+      focus: 'VO2max intervals + Long Run with M-pace finish.',
+      days: [
+        { d:1, date:'Aug 22', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides. Long run tomorrow.' },
+        { d:2, date:'Aug 23', dn:'Sun', tag:'long', name:'★ Long Run — 26km M-pace Finish', km:26, detail:'26km: 20km easy → 6km @5:38–5:45/km marathon pace. First big race-pace finish on a long run.' },
+        { d:3, date:'Aug 24', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Very easy 6km.' },
+        { d:4, date:'Aug 25', dn:'Tue', tag:'quality', name:'Hill Repeats (Build) 🏔', km:8, detail:'15min WU → 8×400m @incline 7%, jog 400m recovery → 10min CD. Same pace กับ C6 แต่ HR ควรต่ำลง' },
+        { d:5, date:'Aug 26', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km.' },
+        { d:6, date:'Aug 27', dn:'Thu', tag:'quality', name:'VO2max Intervals ⚡', km:12, detail:'15min WU + 4×1000s strides + 5×1000m @4:50–5:05/km (HR 172–177), 400m jog + 15min CD. High effort. Full jog recovery.' },
+        { d:7, date:'Aug 28', dn:'Fri', tag:'easy', name:'Easy Run', km:8, detail:'Easy 8km recovery after VO2max.' },
+        { d:8, date:'Aug 29', dn:'Sat', tag:'easy', name:'Fartlek — Structured (Build) 🎲', km:9, detail:'Build Fartlek 9km: WU 10min → 6×2min @5:05–5:15/km with 2min easy → CD 10min. Surge ยาวขึ้น' },
+        { d:9, date:'Aug 30', dn:'Sun', tag:'medium', name:'Easy Long — 18km', km:18, detail:'Second Sunday. Easy 18km. Let last week absorb.' },
+      ]
+    },
+    {
+      n: 8, phase: 'Build', dates: '31 Aug – 08 Sep', totalKm: 68, longKm: 30, recovery: false,
+      focus: 'MILESTONE: First 30km long run.',
+      days: [
+        { d:1, date:'Aug 31', dn:'Mon', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+        { d:2, date:'Sep 01', dn:'Tue', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km. Big week ahead.' },
+        { d:3, date:'Sep 02', dn:'Wed', tag:'test', name:'⚡ LTHR RETEST 1 — 2 Sep', km:10, detail:'RETEST. ลู่ incline 1%. 15min WU → 30min ALL-OUT → บันทึก AVG HR = LTHR ใหม่ + distance = Vcr ใหม่ → 10min CD. ส่งผลให้โค้ชทันที' },
+        { d:4, date:'Sep 03', dn:'Thu', tag:'quality', name:'Hill Repeats (Build) 🏔', km:8, detail:'15min WU → 8×400m @incline 7%, jog 400m recovery → 10min CD. ใช้ zones ใหม่จาก LTHR retest' },
+        { d:5, date:'Sep 04', dn:'Fri', tag:'quality', name:'Cruise Intervals', km:12, detail:'15min WU + 5×1600m @5:50–5:55/km (HR 162–170), 90s jog + 10min CD. Longest threshold reps yet.' },
+        { d:6, date:'Sep 05', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides. 30km tomorrow. Load carbs tonight.' },
+        { d:7, date:'Sep 06', dn:'Sun', tag:'long', name:'★ 30km MILESTONE ⭐', km:30, detail:'30km. Start 7:10/km. Gel every 40min (5 gels total). Salt tablet at 90min. If it falls apart at 27–28km — that is normal. You are training the body to go further. Do not race this.' },
+        { d:8, date:'Sep 07', dn:'Mon', tag:'easy', name:'Fartlek — Structured (Build) 🎲', km:9, detail:'Build Fartlek 9km: WU 10min → 5×3min @5:00–5:10/km with 2min easy → CD 10min' },
+        { d:9, date:'Sep 08', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest. 30km deserves full recovery.' },
+      ]
+    },
+    {
+      n: 9, phase: 'Build', dates: '09 – 17 Sep', totalKm: 64, longKm: 28, recovery: false,
+      focus: 'Threshold reps. 28km long run.',
+      days: [
+        { d:1, date:'Sep 09', dn:'Wed', tag:'medium', name:'Medium-Long Run', km:14, detail:'14km easy Z2.' },
+        { d:2, date:'Sep 10', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+        { d:3, date:'Sep 11', dn:'Fri', tag:'quality', name:'Threshold Reps', km:12, detail:'15min WU + 3×2km @5:45–5:55/km (HR 163–170), 2min jog + 15min CD. Race-hard but controlled.' },
+        { d:4, date:'Sep 12', dn:'Sat', tag:'quality', name:'Hill Repeats (Build) 🏔', km:8, detail:'15min WU → 10×400m @incline 7%, jog 400m recovery → 10min CD. Peak hill volume. HR 162–170 per rep' },
+        { d:5, date:'Sep 13', dn:'Sun', tag:'long', name:'★ Long Run — 28km', km:28, detail:'28km easy. Comfortable pace. You have done 30km — 28 feels manageable now.' },
+        { d:6, date:'Sep 14', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Easy 6km.' },
+        { d:7, date:'Sep 15', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest.' },
+        { d:8, date:'Sep 16', dn:'Wed', tag:'easy', name:'Fartlek — Race-Specific 🎲', km:9, detail:'Race Fartlek 9km: WU 10min → 4×5min @5:38–5:45/km (marathon pace) with 3min easy → CD 10min' },
+        { d:9, date:'Sep 17', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+      ]
+    },
+    {
+      n: 10, phase: 'Build', dates: '18 – 26 Sep', totalKm: 42, longKm: 22, recovery: true,
+      focus: '⟳ Recovery Cycle. Mid-plan reset.',
+      days: [
+        { d:1, date:'Sep 18', dn:'Fri', tag:'easy', name:'Easy Run Z2', km:7, detail:'Easy 7km only.' },
+        { d:2, date:'Sep 19', dn:'Sat', tag:'easy', name:'Easy Run + Strides', km:7, detail:'Easy 7km + 4×15s strides.' },
+        { d:3, date:'Sep 20', dn:'Sun', tag:'long', name:'★ Recovery Long — 22km', km:22, detail:'22km easy recovery run. No M-pace. Comfortable and enjoyable.' },
+        { d:4, date:'Sep 21', dn:'Mon', tag:'quality', name:'Hill Repeats — Light 🏔', km:6, detail:'Recovery cycle. 10min WU → 5×400m @incline 5%, recovery 400m → 10min CD. Easy effort เท่านั้น' },
+        { d:5, date:'Sep 22', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest.' },
+        { d:6, date:'Sep 23', dn:'Wed', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km.' },
+        { d:7, date:'Sep 24', dn:'Thu', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km.' },
+        { d:8, date:'Sep 25', dn:'Fri', tag:'easy', name:'Easy Run Z2', km:7, detail:'Recovery cycle — ไม่มี Fartlek. Easy 7km HR <142' },
+        { d:9, date:'Sep 26', dn:'Sat', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km. Legs feel fresh.' },
+      ]
+    },
+    {
+      n: 11, phase: 'Build', dates: '27 Sep – 05 Oct', totalKm: 68, longKm: 30, recovery: false,
+      focus: 'Progression run + 30km with M-pace finish.',
+      days: [
+        { d:1, date:'Sep 27', dn:'Sun', tag:'long', name:'★ Long Run — 30km M-pace Finish', km:30, detail:'30km: 24km easy → 6km @5:38–5:45/km marathon pace. Major confidence builder.' },
+        { d:2, date:'Sep 28', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Very easy 6km.' },
+        { d:3, date:'Sep 29', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest.' },
+        { d:4, date:'Sep 30', dn:'Wed', tag:'quality', name:'Hill Repeats (Build) 🏔', km:8, detail:'15min WU → 10×400m @incline 7%, jog 400m recovery → 10min CD. Peak volume ครั้งที่ 2 ควร controlled กว่า C9' },
+        { d:5, date:'Oct 01', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km.' },
+        { d:6, date:'Oct 02', dn:'Fri', tag:'quality', name:'Progression Run ⚡', km:14, detail:'14km: 0–5 easy (7:10/km) → 5–9 steady (6:30/km) → 9–12 tempo (6:00/km) → 12–14 M-pace (5:40/km). Teaches finishing strong — key marathon skill.' },
+        { d:7, date:'Oct 03', dn:'Sat', tag:'easy', name:'Easy Run', km:8, detail:'Easy 8km.' },
+        { d:8, date:'Oct 04', dn:'Sun', tag:'easy', name:'Fartlek — Race-Specific 🎲', km:9, detail:'Race Fartlek 9km: WU 10min → 5×5min @5:38–5:45/km with 2min easy → CD 10min' },
+        { d:9, date:'Oct 05', dn:'Mon', tag:'medium', name:'Medium with M-pace', km:15, detail:'15km: 8km easy + 7km @5:38–5:45/km. Dress rehearsal fueling: exact race gels.' },
+      ]
+    },
+    {
+      n: 12, phase: 'Build', dates: '06 – 14 Oct', totalKm: 72, longKm: 32, recovery: false,
+      focus: 'PEAK BUILD: First 32km. Race-pace intervals.',
+      days: [
+        { d:1, date:'Oct 06', dn:'Tue', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+        { d:2, date:'Oct 07', dn:'Wed', tag:'medium', name:'Medium-Long with M-pace', km:15, detail:'15km: 6km easy + 9km @5:38–5:45/km. Longest M-pace block. Full race fueling rehearsal.' },
+        { d:3, date:'Oct 08', dn:'Thu', tag:'easy', name:'Easy Run', km:8, detail:'Easy 8km.' },
+        { d:4, date:'Oct 09', dn:'Fri', tag:'quality', name:'Hill Repeats (Build→Peak) 🏔', km:8, detail:'15min WU → 8×400m @incline 8%, jog 400m recovery → 10min CD. incline 8% สั้นแต่ชันกว่า HR spike สูงต่อ rep' },
+        { d:5, date:'Oct 10', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides. 32km tomorrow. Carb load tonight.' },
+        { d:6, date:'Oct 11', dn:'Sun', tag:'long', name:'★ 32km PEAK LONG RUN 🏔', km:32, detail:'32km — your confidence milestone. Pacing: 7:10/km for km 1–25, 6:45 for 25–30, 6:30 for 30–32 if strong. 5 gels total. Salt at 90min + 150min. You\'ve trained for this.' },
+        { d:7, date:'Oct 12', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Easy 6km after 32km. Mandatory.' },
+        { d:8, date:'Oct 13', dn:'Tue', tag:'easy', name:'Fartlek — Race-Specific 🎲', km:9, detail:'Race Fartlek 9km: WU 10min → 6×5min @5:35–5:41/km with 90s easy → CD 10min' },
+        { d:9, date:'Oct 14', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:9, detail:'Easy 9km.' },
+      ]
+    },
+    {
+      n: 13, phase: 'Race-Tune-Up', dates: '15 – 23 Oct', totalKm: 40, longKm: 21, recovery: false,
+      focus: '🏆 OCT 18 TUNE-UP RACE — Half Marathon',
+      days: [
+        { d:1, date:'Oct 15', dn:'Thu', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km. Race in 3 days.' },
+        { d:2, date:'Oct 16', dn:'Fri', tag:'test', name:'⚡ LTHR RETEST 2 — 16 Oct', km:10, detail:'RETEST FINAL. 2 วันก่อน tune-up race. ลู่ incline 1%. 15min WU → 30min ALL-OUT → AVG HR + distance → 10min CD. Final zone calibration ก่อน Bangkok ส่งผลให้โค้ช' },
+        { d:3, date:'Oct 17', dn:'Sat', tag:'rest', name:'REST — Race Eve', km:0, detail:'Rest. Lay out race gear. Eat dinner early. Sleep by 9:30pm.' },
+        { d:4, date:'Oct 18', dn:'Sun', tag:'race', name:'🏆 TUNE-UP RACE — Oct 18', km:21, detail:'Half Marathon or 25km race. GOAL: run at 5:38–5:45/km (your Bangkok Marathon pace). Treat as a long training run, not an all-out race. This tells you exactly where your fitness stands 6 weeks out.' },
+        { d:5, date:'Oct 19', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Easy 6km. Your legs will be sore. Very gentle.' },
+        { d:6, date:'Oct 20', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Full rest after race.' },
+        { d:7, date:'Oct 21', dn:'Wed', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km. Assess race feedback.' },
+        { d:8, date:'Oct 22', dn:'Thu', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km.' },
+        { d:9, date:'Oct 23', dn:'Fri', tag:'easy', name:'Easy Run', km:7, detail:'Easy 7km. Cycle ends. Peak phase begins.' },
+      ]
+    },
+    {
+      n: 14, phase: 'Peak', dates: '24 Oct – 01 Nov', totalKm: 65, longKm: 32, recovery: false,
+      focus: 'Peak Phase. Second 32km. Final big block.',
+      days: [
+        { d:1, date:'Oct 24', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides. 32km tomorrow.' },
+        { d:2, date:'Oct 25', dn:'Sun', tag:'long', name:'★ 32km Strong Finish 🏔', km:32, detail:'32km: 26km easy → 6km building to M-pace (5:40–5:45/km). You know this distance now. Run it better than C12.' },
+        { d:3, date:'Oct 26', dn:'Mon', tag:'recovery', name:'Recovery Run', km:6, detail:'Easy 6km.' },
+        { d:4, date:'Oct 27', dn:'Tue', tag:'quality', name:'Hill Repeats (Peak) 🏔', km:7, detail:'15min WU → 6×300m @incline 8%, jog 300m recovery → 10min CD. สั้นลง ชันขึ้น = explosive HR 165–172 per rep' },
+        { d:5, date:'Oct 28', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km.' },
+        { d:6, date:'Oct 29', dn:'Thu', tag:'quality', name:'Race-Pace Intervals ⚡', km:13, detail:'15min WU + 4×2km @5:35–5:41/km (goal race pace), 2min jog + 15min CD. Peak quality session.' },
+        { d:7, date:'Oct 30', dn:'Fri', tag:'easy', name:'Easy Run', km:8, detail:'Easy 8km.' },
+        { d:8, date:'Oct 31', dn:'Sat', tag:'easy', name:'Fartlek — Sharp (Peak) 🎲', km:8, detail:'Peak Fartlek 8km: WU 10min → 8×1min @4:50–5:00/km with 2min easy → CD 10min. สั้น คม เร็ว' },
+        { d:9, date:'Nov 01', dn:'Sun', tag:'medium', name:'Easy Long — 18km', km:18, detail:'Easy 18km. Comfortable Sunday long.' },
+      ]
+    },
+    {
+      n: 15, phase: 'Peak', dates: '02 – 10 Nov', totalKm: 60, longKm: 30, recovery: false,
+      focus: 'Final peak. Last 30km. Sharpening begins.',
+      days: [
+        { d:1, date:'Nov 02', dn:'Mon', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km.' },
+        { d:2, date:'Nov 03', dn:'Tue', tag:'easy', name:'Easy Run Z2', km:8, detail:'Easy 8km.' },
+        { d:3, date:'Nov 04', dn:'Wed', tag:'medium', name:'Medium-Long with M-pace', km:13, detail:'13km: 8km easy + 5km @5:40/km. Last M-pace block before taper.' },
+        { d:4, date:'Nov 05', dn:'Thu', tag:'quality', name:'Hill Repeats (Peak — Final) 🏔', km:7, detail:'Hill session สุดท้าย. 15min WU → 6×300m @incline 8%, jog 300m recovery → 10min CD. ทำให้ดี' },
+        { d:5, date:'Nov 06', dn:'Fri', tag:'quality', name:'Tempo + Strides', km:11, detail:'15min WU + 20min tempo @5:45–5:55/km + 6×20s strides + 10min CD. Sharpening.' },
+        { d:6, date:'Nov 07', dn:'Sat', tag:'easy', name:'Easy Prep + Strides', km:8, detail:'Easy 8km + strides.' },
+        { d:7, date:'Nov 08', dn:'Sun', tag:'long', name:'★ Final 30km Long Run', km:30, detail:'30km — last major long run. Comfortable pace. End feeling you could go further. You are ready.' },
+        { d:8, date:'Nov 09', dn:'Mon', tag:'easy', name:'Fartlek — Sharp (Peak) 🎲', km:8, detail:'Peak Fartlek 8km: WU 10min → 6×1min @4:50–5:00/km with 2min easy → CD 10min' },
+        { d:9, date:'Nov 10', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest. Begin trusting the taper.' },
+      ]
+    },
+    {
+      n: 16, phase: 'Taper', dates: '11 – 19 Nov', totalKm: 40, longKm: 20, recovery: true,
+      focus: '⬇ TAPER. Trust the fitness. Legs charge up.',
+      days: [
+        { d:1, date:'Nov 11', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:7, detail:'Easy 7km. Taper begins. Do not add extra km because you feel fresh — it is the taper working.' },
+        { d:2, date:'Nov 12', dn:'Thu', tag:'easy', name:'Easy Run Z2', km:7, detail:'Easy 7km.' },
+        { d:3, date:'Nov 13', dn:'Fri', tag:'quality', name:'Taper Tune-Up ⚡', km:8, detail:'20min WU + 3×1km @race pace (5:35–5:41/km) + 10min CD. Short, sharp, confident.' },
+        { d:4, date:'Nov 14', dn:'Sat', tag:'easy', name:'Easy Run Z2', km:8, detail:'Taper — ไม่มี hills cycle นี้. Easy 8km HR <142' },
+        { d:5, date:'Nov 15', dn:'Sun', tag:'long', name:'★ Taper Long Run — 20km', km:20, detail:'20km easy. This will feel short. Good. Race day is in 13 days.' },
+        { d:6, date:'Nov 16', dn:'Mon', tag:'recovery', name:'Easy Recovery', km:5, detail:'Easy 5km only.' },
+        { d:7, date:'Nov 17', dn:'Tue', tag:'rest', name:'REST', km:0, detail:'Rest.' },
+        { d:8, date:'Nov 18', dn:'Wed', tag:'easy', name:'Easy Run Z2', km:6, detail:'Taper — ไม่มี Fartlek. Easy 6km เท่านั้น' },
+        { d:9, date:'Nov 19', dn:'Thu', tag:'easy', name:'Easy Run', km:6, detail:'Easy 6km.' },
+      ]
+    },
+    {
+      n: 17, phase: 'Taper', dates: '20 – 28 Nov', totalKm: 22, longKm: 14, recovery: true,
+      focus: '🏁 RACE WEEK. Sleep. Eat. Rest. Race.',
+      days: [
+        { d:1, date:'Nov 20', dn:'Fri', tag:'easy', name:'Easy Run', km:5, detail:'Easy 5km only. Carb load Day 1: 350g carbs.' },
+        { d:2, date:'Nov 21', dn:'Sat', tag:'easy', name:'Easy Run + Strides', km:5, detail:'Easy 5km + 4×20s strides. Carb load Day 2.' },
+        { d:3, date:'Nov 22', dn:'Sun', tag:'long', name:'★ Final Long Run — 14km', km:14, detail:'Easy 14km. Enjoy it. Last real run before Bangkok. Carb load Day 3: 400g carbs.' },
+        { d:4, date:'Nov 23', dn:'Mon', tag:'rest', name:'REST', km:0, detail:'Rest. Off feet. Carb load Day 4.' },
+        { d:5, date:'Nov 24', dn:'Tue', tag:'easy', name:'Easy 8km', km:8, detail:'Easy 8km — keep legs moving. No effort whatsoever.' },
+        { d:6, date:'Nov 25', dn:'Wed', tag:'easy', name:'Easy 5km + Strides', km:5, detail:'Easy 5km + 4 strides. Legs feel powerful. Carbs working.' },
+        { d:7, date:'Nov 26', dn:'Thu', tag:'rest', name:'REST — Full Day Off', km:0, detail:'No running. Walk max 20min. Sleep by 9pm. Lay out race gear tonight.' },
+        { d:8, date:'Nov 27', dn:'Fri', tag:'rest', name:'Pre-Race Shakeout', km:3, detail:'3km very easy + 4×20s race-pace strides. Done by 7am. Eat pasta for dinner at 5pm. Bed by 9pm.' },
+        { d:9, date:'Nov 28', dn:'Sat', tag:'race', name:'🏁 BANGKOK MARATHON', km:42.195, detail:'Target: 3:58–3:59 | Pace: 5:38–5:41/km. Wake 4:30am. Breakfast 5am. You are ready. GO.' },
+      ]
+    },
+  ]
+};
+
+const phaseColors = {
+  'Base': 'var(--phase-base)',
+  'Build': 'var(--phase-build)',
+  'Race-Tune-Up': 'var(--phase-race)',
+  'Peak': 'var(--phase-peak)',
+  'Taper': 'var(--phase-taper)',
+};
+
+const phaseBadgeClass = {
+  'Base': 'badge-base',
+  'Build': 'badge-build',
+  'Race-Tune-Up': 'badge-race',
+  'Peak': 'badge-peak',
+  'Taper': 'badge-taper',
+};
+
+const phaseClass = {
+  'Base': 'phase-base',
+  'Build': 'phase-build',
+  'Race-Tune-Up': 'phase-race',
+  'Peak': 'phase-peak',
+  'Taper': 'phase-taper',
+};
+
+// Load completion state
+function getKey(cycleN, dayD) { return `bkk2026_c${cycleN}_d${dayD}`; }
+function isCompleted(cn, dd) { return localStorage.getItem(getKey(cn, dd)) === '1'; }
+function toggleCompleted(cn, dd) {
+  const k = getKey(cn, dd);
+  if (localStorage.getItem(k) === '1') localStorage.removeItem(k);
+  else localStorage.setItem(k, '1');
+}
+
+// Build nav
+const nav = document.getElementById('cycleNav');
+PLAN.cycles.forEach(c => {
+  const btn = document.createElement('button');
+  btn.className = `nav-btn phase-${c.phase.toLowerCase().replace('-tune-up','race').replace(' ','-').split('-')[0]}`;
+  if (c.phase === 'Race-Tune-Up') btn.className = 'nav-btn phase-race';
+  btn.textContent = `C${c.n}`;
+  btn.title = c.dates;
+  btn.onclick = () => {
+    document.getElementById(`cycle-${c.n}`).scrollIntoView({ behavior: 'smooth' });
+  };
+  nav.appendChild(btn);
+});
+
+// Build volume chart
+const maxKm = Math.max(...PLAN.cycles.map(c => c.totalKm));
+const volChart = document.getElementById('volumeChart');
+const timeline = document.getElementById('phaseTimeline');
+PLAN.cycles.forEach(c => {
+  const bar = document.createElement('div');
+  bar.className = 'vol-bar';
+  bar.style.height = (c.totalKm / maxKm * 100) + '%';
+  bar.style.background = phaseColors[c.phase];
+  bar.style.opacity = c.recovery ? '0.4' : '0.75';
+  bar.setAttribute('data-tip', `C${c.n}: ${c.totalKm}km`);
+  volChart.appendChild(bar);
+
+  const seg = document.createElement('div');
+  seg.className = 'timeline-seg';
+  seg.style.flex = '1';
+  seg.style.background = phaseColors[c.phase];
+  seg.style.opacity = c.recovery ? '0.3' : '0.7';
+  timeline.appendChild(seg);
+});
+
+// Build cycles
+const container = document.getElementById('cycleContainer');
+let lastPhase = null;
+
+PLAN.cycles.forEach(c => {
+  if (c.phase !== lastPhase) {
+    lastPhase = c.phase;
+    const ph = document.createElement('div');
+    ph.className = 'phase-section';
+    const phaseNames = { 'Base': 'BASE — Aerobic Foundation', 'Build': 'BUILD — Threshold Development', 'Race-Tune-Up': 'RACE TUNE-UP', 'Peak': 'PEAK — Race Sharpening', 'Taper': 'TAPER — Race Prep' };
+    const phaseDescs = { 'Base': 'Cycles 1–5 · 45 days', 'Build': 'Cycles 6–12 · 63 days', 'Race-Tune-Up': 'Cycle 13 · Oct 18 Half Marathon', 'Peak': 'Cycles 14–15 · 18 days', 'Taper': 'Cycles 16–17 · 18 days' };
+    ph.innerHTML = `<div class="phase-header"><span class="phase-badge ${phaseBadgeClass[c.phase]}">${c.phase}</span><h2 class="phase-title">${phaseNames[c.phase]}</h2><span class="phase-desc">${phaseDescs[c.phase]}</span></div>`;
+    container.appendChild(ph);
+  }
+
+  const card = document.createElement('div');
+  card.className = 'cycle-card';
+  card.id = `cycle-${c.n}`;
+  if (c.n === 1) card.classList.add('open');
+
+  const longDay = c.days.find(d => d.tag === 'long' || d.tag === 'race');
+
+  card.innerHTML = `
+    <div class="cycle-header" onclick="this.parentElement.classList.toggle('open')">
+      <span class="cycle-num">Cycle ${c.n}</span>
+      <span class="cycle-dates">${c.dates}</span>
+      <span class="cycle-focus">${c.focus}</span>
+      <span class="cycle-km">${c.totalKm} km</span>
+      <span class="cycle-long">${longDay ? longDay.km+'km' : ''}</span>
+      <span class="cycle-toggle">▾</span>
+    </div>
+    <div class="day-grid" id="grid-${c.n}"></div>
+  `;
+  container.appendChild(card);
+
+  const grid = card.querySelector(`#grid-${c.n}`);
+  c.days.forEach(d => {
+    const row = document.createElement('div');
+    const comp = isCompleted(c.n, d.d);
+    row.className = `day-row ${comp ? 'completed' : ''} ${d.tag === 'long' ? 'is-long' : ''} ${d.tag === 'race' ? 'is-race' : ''}`;
+    row.innerHTML = `
+      <span class="day-num">D${d.d}</span>
+      <span class="day-date">${d.date} ${d.dn}</span>
+      <span class="day-tag tag-${d.tag}">${d.tag === 'long' ? '★ LONG' : d.tag === 'medium' ? 'MLR' : d.tag === 'quality' ? 'QUALITY' : d.tag === 'test' ? 'TEST' : d.tag === 'race' ? 'RACE' : d.tag.toUpperCase()}</span>
+      <div class="day-workout">
+        <strong>${d.name}</strong>${d.km > 0 ? ' <span style="color:var(--muted);font-family:var(--mono);font-size:11px">'+d.km+'km</span>' : ''}
+        <span class="detail">${d.detail}</span>
+      </div>
+      <div class="day-check" data-cycle="${c.n}" data-day="${d.d}">${comp ? '✓' : ''}</div>
+    `;
+    grid.appendChild(row);
+  });
+});
+
+document.addEventListener('click', function(e) {
+  const checkEl = e.target.closest('.day-check');
+  if (!checkEl) return;
+  e.stopPropagation();
+  const cn = parseInt(checkEl.dataset.cycle);
+  const dd = parseInt(checkEl.dataset.day);
+  toggleCompleted(cn, dd);
+  const comp = isCompleted(cn, dd);
+  const row = checkEl.closest('.day-row');
+  row.classList.toggle('completed', comp);
+  checkEl.textContent = comp ? '✓' : '';
+});
+
+// Scroll spy for nav
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const n = e.target.id.replace('cycle-', '');
+      document.querySelectorAll('.nav-btn').forEach((b,i) => b.classList.toggle('active', i+1 === +n));
+    }
+  });
+}, { threshold: 0.1, rootMargin: '-60px 0px -70% 0px' });
+document.querySelectorAll('.cycle-card').forEach(c => observer.observe(c));
